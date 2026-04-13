@@ -1,0 +1,10 @@
+name = "minimal-fv-example"
+version = "0.1.0"
+defaultTargets = ["minimal-fv-example"]
+
+[[lean_lib]]
+name = "MinimalFvExample"
+
+[[lean_exe]]
+name = "minimal-fv-example"
+root = "Main"
