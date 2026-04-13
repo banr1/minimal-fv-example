@@ -1,6 +1,6 @@
 namespace Demo
 
--- Concrete implementation: tail-recursive
+-- 具体実装: 末尾再帰
 def revAux : List α → List α → List α
   | [],      acc => acc
   | x :: xs, acc => revAux xs (x :: acc)

@@ -1,10 +1,10 @@
 namespace Demo
 
--- Abstract specification: result matches the mathematical reverse
+-- 抽象仕様: 結果は数学的な reverse と一致する
 def spec (xs : List α) : List α :=
   xs.reverse
 
--- Alternative: specification as a proposition
+-- 別形式: 命題としての仕様
 def isRev (xs ys : List α) : Prop :=
   ys = xs.reverse
 

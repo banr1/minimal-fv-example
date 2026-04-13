@@ -1,23 +1,22 @@
 # minimal-fv-example
 
-A minimal Lean 4 project demonstrating formal verification: a tail-recursive
-`List.reverse` implementation paired with a proof that it meets its abstract
-specification.
+形式検証を示す最小構成の Lean 4 プロジェクトです。末尾再帰版の
+`List.reverse` 実装と、それが抽象仕様を満たすことの証明をペアで提供します。
 
-- `Demo.impl` — concrete tail-recursive implementation (`MinimalFvExample/Basic.lean`)
-- `Demo.spec` — abstract specification (`xs.reverse`)
-- `Demo.impl_correct` — theorem: `impl xs = spec xs`
+- `Demo.impl` — 具体的な末尾再帰実装 (`MinimalFvExample/Basic.lean`)
+- `Demo.spec` — 抽象仕様 (`xs.reverse`)
+- `Demo.impl_correct` — 定理: `impl xs = spec xs`
 
-## Run the concrete implementation on sample values
+## 具体実装をサンプル値で実行する
 
-Executes `Demo.impl` on a concrete list and prints the result alongside the
-specification's output.
+`Demo.impl` を具体的なリストに対して実行し、その結果を仕様の出力と
+あわせて表示します。
 
 ```sh
 lake exe minimal-fv-example
 ```
 
-Expected output:
+期待される出力:
 
 ```
 input    : [1, 2, 3, 4, 5]
@@ -25,18 +24,18 @@ impl xs  : [5, 4, 3, 2, 1]
 spec xs  : [5, 4, 3, 2, 1]
 ```
 
-Edit the `input` value in `Main.lean` to try other lists.
+他のリストで試すには `Main.lean` の `input` を書き換えてください。
 
-## Verify the abstract specification proof
+## 抽象仕様の証明を検証する
 
-Type-checks the `MinimalFvExample` library. Because Lean checks proofs at
-elaboration time, a successful build is a machine-verified guarantee that
-`impl_correct` and `impl_meets_spec` hold for **all** inputs — not just the
-sample above.
+`MinimalFvExample` ライブラリを型検査します。Lean はエラボレーション時に
+証明を検査するため、ビルドが成功すること自体が `impl_correct` と
+`impl_meets_spec` が **すべての** 入力について成り立つことの機械的な
+保証になります。上記のサンプル入力だけに対する保証ではありません。
 
 ```sh
 lake build MinimalFvExample
 ```
 
-A `Build completed successfully` message means every theorem in the library
-has been formally verified by the Lean kernel.
+`Build completed successfully` と表示されれば、ライブラリ内のすべての
+定理が Lean カーネルによって形式的に検証されたことを意味します。

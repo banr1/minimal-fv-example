@@ -3,7 +3,7 @@ import MinimalFvExample.Impl
 
 namespace Demo
 
--- Implementation lemma
+-- 実装に関する補題
 theorem revAux_correct (xs acc : List α) :
     revAux xs acc = xs.reverse ++ acc := by
   induction xs generalizing acc with
@@ -12,7 +12,7 @@ theorem revAux_correct (xs acc : List α) :
   | cons x xs ih =>
       simp [revAux, ih, List.reverse_cons, List.append_assoc]
 
--- Specification satisfaction
+-- 仕様の充足
 theorem impl_correct (xs : List α) :
     impl xs = spec xs := by
   simp [impl, spec, revAux_correct]
