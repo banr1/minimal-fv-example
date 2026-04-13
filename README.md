@@ -3,9 +3,11 @@
 形式検証を示す最小構成の Lean 4 プロジェクトです。末尾再帰版の
 `List.reverse` 実装と、それが抽象仕様を満たすことの証明をペアで提供します。
 
-- `Demo.impl` — 具体的な末尾再帰実装 (`MinimalFvExample/Basic.lean`)
-- `Demo.spec` — 抽象仕様 (`xs.reverse`)
-- `Demo.impl_correct` — 定理: `impl xs = spec xs`
+- `Demo.impl` — 具体的な末尾再帰実装 (`MinimalFvExample/Impl.lean`)
+- `Demo.reverseSpec` — 関数形式の抽象仕様 (`xs.reverse`)
+- `Demo.IsReverse` — 関係形式の抽象仕様 (命題)
+- `Demo.impl_eq_reverseSpec` — 定理: `impl xs = reverseSpec xs`
+- `Demo.impl_isReverse` — 定理: `IsReverse xs (impl xs)`
 
 ## 具体実装をサンプル値で実行する
 
@@ -29,8 +31,8 @@ spec xs  : [5, 4, 3, 2, 1]
 ## 抽象仕様の証明を検証する
 
 `MinimalFvExample` ライブラリを型検査します。Lean はエラボレーション時に
-証明を検査するため、ビルドが成功すること自体が `impl_correct` と
-`impl_meets_spec` が **すべての** 入力について成り立つことの機械的な
+証明を検査するため、ビルドが成功すること自体が `impl_eq_reverseSpec` と
+`impl_isReverse` が **すべての** 入力について成り立つことの機械的な
 保証になります。上記のサンプル入力だけに対する保証ではありません。
 
 ```sh
@@ -39,3 +41,13 @@ lake build MinimalFvExample
 
 `Build completed successfully` と表示されれば、ライブラリ内のすべての
 定理が Lean カーネルによって形式的に検証されたことを意味します。
+
+2 種類の仕様をそれぞれ個別に検証するには、次のコマンドを使います。
+
+```sh
+# 関数形式の仕様 (impl_eq_reverseSpec) のみを検証
+lake build MinimalFvExample.FunctionalSpec
+
+# 関係形式の仕様 (impl_isReverse) のみを検証
+lake build MinimalFvExample.RelationalSpec
+```
