@@ -10,9 +10,9 @@
 
 - `Demo.reverseImpl` — 具体的な末尾再帰実装 (`MinimalFvExample/Impl.lean`)
 - `Demo.reverseSpec` — 関数形式の抽象仕様 (`xs.reverse`)
-- `Demo.IsReverse` — 関係形式の抽象仕様 (命題)
+- `Demo.IsReverseSpec` — 関係形式の抽象仕様 (命題)
 - `Demo.reverseImpl_eq_reverseSpec` — 定理: `reverseImpl xs = reverseSpec xs`
-- `Demo.reverseImpl_isReverse` — 定理: `IsReverse xs (reverseImpl xs)`
+- `Demo.reverseImpl_isReverseSpec` — 定理: `IsReverseSpec xs (reverseImpl xs)`
 
 ## 具体実装をサンプル値で実行する
 
@@ -36,7 +36,7 @@ impl xs  : [5, 4, 3, 2, 1]
 
 `MinimalFvExample` ライブラリを型検査します。Lean はエラボレーション時に
 証明を検査するため、ビルドが成功すること自体が `reverseImpl_eq_reverseSpec` と
-`reverseImpl_isReverse` が **すべての** 入力について成り立つことの機械的な
+`reverseImpl_isReverseSpec` が **すべての** 入力について成り立つことの機械的な
 保証になります。上記のサンプル入力だけに対する保証ではありません。
 
 ```sh
@@ -54,6 +54,6 @@ lake build MinimalFvExample
 # 関数形式の仕様 (reverseImpl_eq_reverseSpec) のみを検証
 lake build MinimalFvExample.FunctionalSpec
 
-# 関係形式の仕様 (reverseImpl_isReverse) のみを検証
+# 関係形式の仕様 (reverseImpl_isReverseSpec) のみを検証
 lake build MinimalFvExample.RelationalSpec
 ```

@@ -3,7 +3,7 @@ import MinimalFvExample.Impl
 namespace Demo
 
 -- `toList` ビュー上で述べた関係的仕様: `b` は `a` の反転である。
-def IsReverse (a b : Array Int256) : Prop :=
+def IsReverseSpec (a b : Array Int256) : Prop :=
   b.toList = a.toList.reverse
 
 -- 補助: `List.take` を 1 要素伸ばすと、その要素が末尾に追加される。
@@ -40,8 +40,9 @@ private theorem revAux_toList (src : Array Int256) (i : Nat) :
       rfl
 
 -- 関係的仕様の充足。
-theorem reverseImpl_isReverse (src : Array Int256) : IsReverse src (reverseImpl src) := by
-  rw [IsReverse, reverseImpl, revAux_toList]
+theorem reverseImpl_isReverseSpec (src : Array Int256) :
+    IsReverseSpec src (reverseImpl src) := by
+  rw [IsReverseSpec, reverseImpl, revAux_toList]
   simp [← Array.length_toList, List.take_length]
 
 end Demo
