@@ -1,11 +1,11 @@
 namespace Demo
 
--- Concrete element type: 256-bit machine integer (e.g. Solidity int256).
+-- 具体的な要素型: 256 ビットのマシン整数 (例: Solidity の int256)。
 abbrev Int256 := BitVec 256
 
--- Tail-recursive reversal helper for `Array Int256`.
--- Walks `i` down from `src.size` to `0`, pushing `src[i]` onto `acc`
--- at each step. The bound `i ≤ src.size` lets us index `src` safely.
+-- `Array Int256` に対する末尾再帰の反転ヘルパー。
+-- `i` を `src.size` から `0` まで減らしながら、各ステップで `src[i]` を
+-- `acc` に push していく。`i ≤ src.size` の境界により `src` を安全に添字参照できる。
 def revAux (src : Array Int256) :
     (i : Nat) → i ≤ src.size → Array Int256 → Array Int256
   | 0,     _, acc => acc

@@ -2,12 +2,12 @@ import MinimalFvExample.Impl
 
 namespace Demo
 
--- Functional spec stated on the `toList` view of the array: the
--- implementation must agree with the standard list reversal.
+-- 配列の `toList` ビュー上で述べた関数的仕様: 実装は標準の
+-- リスト反転と一致しなければならない。
 def reverseSpec (a : Array Int256) : List Int256 :=
   a.toList.reverse
 
--- Auxiliary: extending `List.take` by one element appends that element.
+-- 補助: `List.take` を 1 要素伸ばすと、その要素が末尾に追加される。
 private theorem listTakeSucc {α} (l : List α) (n : Nat) (h : n < l.length) :
     l.take (n + 1) = l.take n ++ [l[n]] := by
   induction l generalizing n with
@@ -22,8 +22,8 @@ private theorem listTakeSucc {α} (l : List α) (n : Nat) (h : n < l.length) :
           simp only [List.take_succ_cons, List.getElem_cons_succ]
           exact congrArg _ (ih m hm)
 
--- Loop invariant for `revAux`: starting from `acc`, the helper appends the
--- reverse of the first `i` elements of `src` to `acc`.
+-- `revAux` のループ不変条件: `acc` から始めて、ヘルパーは `src` の
+-- 先頭 `i` 要素の反転を `acc` の末尾に追加する。
 private theorem revAux_toList (src : Array Int256) (i : Nat) :
     ∀ (h : i ≤ src.size) (acc : Array Int256),
       (revAux src i h acc).toList = acc.toList ++ (src.toList.take i).reverse := by
@@ -41,7 +41,7 @@ private theorem revAux_toList (src : Array Int256) (i : Nat) :
           List.reverse_singleton, List.append_assoc]
       rfl
 
--- Functional spec satisfaction.
+-- 関数的仕様の充足。
 theorem reverseImpl_eq_reverseSpec (src : Array Int256) :
     (reverseImpl src).toList = reverseSpec src := by
   rw [reverseImpl, reverseSpec, revAux_toList]

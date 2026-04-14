@@ -2,11 +2,11 @@ import MinimalFvExample.Impl
 
 namespace Demo
 
--- Relational spec stated on the `toList` view: `b` is a reversal of `a`.
+-- `toList` ビュー上で述べた関係的仕様: `b` は `a` の反転である。
 def IsReverse (a b : Array Int256) : Prop :=
   b.toList = a.toList.reverse
 
--- Auxiliary: extending `List.take` by one element appends that element.
+-- 補助: `List.take` を 1 要素伸ばすと、その要素が末尾に追加される。
 private theorem listTakeSucc {α} (l : List α) (n : Nat) (h : n < l.length) :
     l.take (n + 1) = l.take n ++ [l[n]] := by
   induction l generalizing n with
@@ -21,7 +21,7 @@ private theorem listTakeSucc {α} (l : List α) (n : Nat) (h : n < l.length) :
           simp only [List.take_succ_cons, List.getElem_cons_succ]
           exact congrArg _ (ih m hm)
 
--- Loop invariant for `revAux` (proved independently from FunctionalSpec).
+-- `revAux` のループ不変条件 (FunctionalSpec とは独立に証明)。
 private theorem revAux_toList (src : Array Int256) (i : Nat) :
     ∀ (h : i ≤ src.size) (acc : Array Int256),
       (revAux src i h acc).toList = acc.toList ++ (src.toList.take i).reverse := by
@@ -39,7 +39,7 @@ private theorem revAux_toList (src : Array Int256) (i : Nat) :
           List.reverse_singleton, List.append_assoc]
       rfl
 
--- Relational spec satisfaction.
+-- 関係的仕様の充足。
 theorem reverseImpl_isReverse (src : Array Int256) : IsReverse src (reverseImpl src) := by
   rw [IsReverse, reverseImpl, revAux_toList]
   simp [← Array.length_toList, List.take_length]
