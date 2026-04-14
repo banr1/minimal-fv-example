@@ -40,8 +40,8 @@ private theorem revAux_toList (src : Array Int256) (i : Nat) :
       rfl
 
 -- Relational spec satisfaction.
-theorem impl_isReverse (src : Array Int256) : IsReverse src (impl src) := by
-  rw [IsReverse, impl, revAux_toList]
+theorem reverseImpl_isReverse (src : Array Int256) : IsReverse src (reverseImpl src) := by
+  rw [IsReverse, reverseImpl, revAux_toList]
   simp [← Array.length_toList, List.take_length]
 
 end Demo

@@ -42,9 +42,9 @@ private theorem revAux_toList (src : Array Int256) (i : Nat) :
       rfl
 
 -- Functional spec satisfaction.
-theorem impl_eq_reverseSpec (src : Array Int256) :
-    (impl src).toList = reverseSpec src := by
-  rw [impl, reverseSpec, revAux_toList]
+theorem reverseImpl_eq_reverseSpec (src : Array Int256) :
+    (reverseImpl src).toList = reverseSpec src := by
+  rw [reverseImpl, reverseSpec, revAux_toList]
   simp [← Array.length_toList, List.take_length]
 
 end Demo

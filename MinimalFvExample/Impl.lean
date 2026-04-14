@@ -13,7 +13,7 @@ def revAux (src : Array Int256) :
       have hi : n < src.size := h
       revAux src n (Nat.le_of_lt hi) (acc.push src[n])
 
-def impl (src : Array Int256) : Array Int256 :=
+def reverseImpl (src : Array Int256) : Array Int256 :=
   revAux src src.size (Nat.le_refl _) #[]
 
 end Demo
